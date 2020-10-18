@@ -1,12 +1,13 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
-import ErrorRepository from './errorrepsitory';
-import errorsList from './errorslist';
+import Daemon from './characters/daemon';
 
-const repository = new ErrorRepository(Object.entries(errorsList));
+const character = new Daemon('Alex');
 
-console.log(repository);
+character.stoned = true;
+character.rangedMod = true;
+character.range = 2;
+// character.damage(500);
+console.log(character.attack);
 
-console.log(repository.translate(1));
-console.log(repository.translate());
-console.log(repository.translate(111));
+character.levelUp();
+console.log(character.attack);
+console.log(character);

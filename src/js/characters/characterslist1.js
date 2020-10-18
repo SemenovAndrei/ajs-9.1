@@ -5,12 +5,12 @@ import Swordsman from './swordsman';
 import Undead from './undead';
 import Zombie from './zombie';
 
-const bowman = new Bowman('bowman1');
-const daemon = new Daemon('daemon1');
-const magician = new Magician('magician1');
-const swordsman = new Swordsman('swordsman1');
-const undead = new Undead('undead1');
-const zombie = new Zombie('zombie1');
+const bowman = new Bowman('bowmanA');
+const daemon = new Daemon('daemonA');
+const magician = new Magician('magicianA');
+const swordsman = new Swordsman('swordsmanA');
+const undead = new Undead('undeadA');
+const zombie = new Zombie('zombieA');
 
 /**
  * Список персонажей

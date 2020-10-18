@@ -13,6 +13,7 @@ class Daemon extends Character {
     this.type = 'daemon';
     this.attack = 10;
     this.defence = 40;
+    this.rangedMod = true;
   }
 }
 

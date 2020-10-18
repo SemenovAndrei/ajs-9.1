@@ -13,6 +13,7 @@ class Magician extends Character {
     this.type = 'magician';
     this.attack = 10;
     this.defence = 40;
+    this.rangedMod = true;
   }
 }
 
