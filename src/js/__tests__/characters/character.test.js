@@ -1,73 +1,79 @@
 import Character from '../../characters/character';
 
-test.each([
-  [1],
-  [true],
-  [null],
-  [undefined],
-  [[]],
-  [{}],
-  ['a'],
-  ['a '],
-  [' a  a'],
-  ['aaaa '],
-  ['aaaaaaaaaaa'],
-])('%p', (name) => {
-  expect(() => {
+describe('create new Character(name) name !correct', () => {
+  test.each([
+    [1],
+    [true],
+    [null],
+    [undefined],
+    [[]],
+    [{}],
+    ['a'],
+    ['a '],
+    [' a  a'],
+    ['aaaa '],
+    ['aaaaaaaaaaa'],
+  ])('%p', (name) => {
+    expect(() => {
     // eslint-disable-next-line no-new
-    new Character(name);
-  }).toThrow();
+      new Character(name);
+    }).toThrow();
+  });
 });
 
-test.each([
-  ['Alex', -40],
-  ['Alex', '40'],
-  ['Alex', NaN],
-  ['Alex', true],
-  ['Alex', null],
-  ['Alex', undefined],
-])('%p %p', (name, points) => {
-  const result = new Character(name);
-  expect(() => {
+describe('damage(points) points !correct', () => {
+  test.each([
+    ['Alex', -40],
+    ['Alex', '40'],
+    ['Alex', NaN],
+    ['Alex', true],
+    ['Alex', null],
+    ['Alex', undefined],
+  ])('%p %p', (name, points) => {
+    const result = new Character(name);
+    expect(() => {
+      result.damage(points);
+    }).toThrow();
+  });
+});
+
+describe('test damage(points)', () => {
+  test.each([
+    ['Alex', 0, {
+      _attack: 0,
+      _defence: 0,
+      _range: 1,
+      _stoned: false,
+      rangedMod: false,
+      health: 100,
+      level: 1,
+      name: 'Alex',
+    }],
+    ['Semen', 50, {
+      _attack: 0,
+      _defence: 0,
+      _range: 1,
+      _stoned: false,
+      rangedMod: false,
+      health: 50,
+      level: 1,
+      name: 'Semen',
+    }],
+    ['noob', 500, {
+      _attack: 0,
+      _defence: 0,
+      _range: 1,
+      _stoned: false,
+      rangedMod: false,
+      health: -400,
+      level: 1,
+      name: 'noob',
+    }],
+  ])('%p %p', (name, points, expected) => {
+    const result = new Character(name);
     result.damage(points);
-  }).toThrow();
-});
-
-test.each([
-  ['Alex', 0, {
-    _attack: 0,
-    _defence: 0,
-    _range: 1,
-    _stoned: false,
-    rangedMod: false,
-    health: 100,
-    level: 1,
-    name: 'Alex',
-  }],
-  ['Semen', 50, {
-    _attack: 0,
-    _defence: 0,
-    _range: 1,
-    _stoned: false,
-    rangedMod: false,
-    health: 50,
-    level: 1,
-    name: 'Semen',
-  }],
-  ['noob', 500, {
-    _attack: 0,
-    _defence: 0,
-    _range: 1,
-    _stoned: false,
-    rangedMod: false,
-    health: -400,
-    level: 1,
-    name: 'noob',
-  }],
-])('%p %p', (name, points, expected) => {
-  const result = new Character(name);
-  result.damage(points);
-  expect(result).toEqual(expected);
+    expect(result).toEqual(expected);
+  });
 });
 
 test('урон по персонажу с отрицательным количеством здоровья', () => {
@@ -77,52 +83,56 @@ test('урон по персонажу с отрицательным колич�
   expect(result.health).toBe(-400);
 });
 
-test.each([
-  ['Alex', -40],
-  ['Alex', 0],
-])('%p %p', (name, health) => {
-  const result = new Character(name);
-  result.health = health;
-  expect(() => {
-    result.levelUp();
-  }).toThrow();
+describe('levelUp() health !correct', () => {
+  test.each([
+    ['Alex', -40],
+    ['Alex', 0],
+  ])('%p %p', (name, health) => {
+    const result = new Character(name);
+    result.health = health;
+    expect(() => {
+      result.levelUp();
+    }).toThrow();
+  });
 });
 
-test.each([
-  ['Alex', 1, {
-    _attack: 0,
-    _defence: 0,
-    _range: 1,
-    _stoned: false,
-    rangedMod: false,
-    health: 100,
-    level: 2,
-    name: 'Alex',
-  }],
-  ['Semen', 3, {
-    _attack: 0,
-    _defence: 0,
-    _range: 1,
-    _stoned: false,
-    rangedMod: false,
-    health: 100,
-    level: 4,
-    name: 'Semen',
-  }],
-  ['noob', 5, {
-    _attack: 0,
-    _defence: 0,
-    _range: 1,
-    _stoned: false,
-    rangedMod: false,
-    health: 100,
-    level: 6,
-    name: 'noob',
-  }],
-])('%p %p', (name, cnt, expected) => {
-  const result = new Character(name);
-  for (let i = 0; i < cnt; i += 1) {
-    result.levelUp();
-  }
-  expect(result).toEqual(expected);
+describe('levelUp()', () => {
+  test.each([
+    ['Alex', 1, {
+      _attack: 0,
+      _defence: 0,
+      _range: 1,
+      _stoned: false,
+      rangedMod: false,
+      health: 100,
+      level: 2,
+      name: 'Alex',
+    }],
+    ['Semen', 3, {
+      _attack: 0,
+      _defence: 0,
+      _range: 1,
+      _stoned: false,
+      rangedMod: false,
+      health: 100,
+      level: 4,
+      name: 'Semen',
+    }],
+    ['noob', 5, {
+      _attack: 0,
+      _defence: 0,
+      _range: 1,
+      _stoned: false,
+      rangedMod: false,
+      health: 100,
+      level: 6,
+      name: 'noob',
+    }],
+  ])('%p %p', (name, cnt, expected) => {
+    const result = new Character(name);
+    for (let i = 0; i < cnt; i += 1) {
+      result.levelUp();
+    }
+    expect(result).toEqual(expected);
+  });
 });
