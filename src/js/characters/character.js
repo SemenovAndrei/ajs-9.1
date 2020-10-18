@@ -70,7 +70,7 @@ class Character {
     if (typeof value !== 'number' || Number.isNaN(value) || value < 1) {
       throw new Error(`некорректное значение расстояния - ${value}`);
     }
-    this._range = Math.trunc(value) || 1;
+    this._range = Math.trunc(value);
   }
 
   /**
@@ -106,9 +106,9 @@ class Character {
     let attack = this._attack;
     if (this.rangedMod) {
       attack -= attack * (this.range * 0.1 - 0.1);
-    }
-    if (this.stoned) {
-      attack -= Math.log2(this.range) * 5;
+      if (this.stoned) {
+        attack -= Math.log2(this.range) * 5;
+      }
     }
     return Math.trunc(attack);
   }
@@ -121,7 +121,7 @@ class Character {
    * @throws {error}
    */
   set defence(value) {
-    if (value && (typeof value !== 'number' || Number.isNaN(value) || value < 0)) {
+    if (typeof value !== 'number' || Number.isNaN(value) || value < 0) {
       throw new Error(`некорректное значение защиты - ${value}`);
     }
 
@@ -132,7 +132,8 @@ class Character {
    * Возвращает значение свойства defence
    */
   get defence() {
-    return this._defence;
+    const defence = this._defence;
+    return defence;
   }
 
   /**

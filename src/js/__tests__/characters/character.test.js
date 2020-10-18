@@ -9,6 +9,13 @@ describe('create new Character(name) name !correct', () => {
     [[]],
     [{}],
     ['a'],
+    ['1aa'],
+    ['-aa'],
+    ['_aa'],
+    ['aa1'],
+    ['aa_'],
+    ['aa-'],
+    ['a111a'],
     ['a '],
     [' a  a'],
     ['aaaa '],
@@ -134,5 +141,149 @@ describe('levelUp()', () => {
       result.levelUp();
     }
     expect(result).toEqual(expected);
+  });
+});
+
+describe('stoned !incorrect', () => {
+  test.each([
+    [0],
+    [[]],
+    [{}],
+    [123],
+    [NaN],
+    [null],
+    [undefined],
+    ['Alex'],
+  ])('%p', (stoned) => {
+    const result = new Character('name');
+    expect(() => {
+      result.stoned = stoned;
+    }).toThrow();
+  });
+});
+
+describe('range !incorrect', () => {
+  test.each([
+    [0],
+    [[]],
+    [{}],
+    [-1],
+    [NaN],
+    [null],
+    [undefined],
+    ['Alex'],
+  ])('%p', (range) => {
+    const result = new Character('name');
+    expect(() => {
+      result.range = range;
+    }).toThrow();
+  });
+});
+
+test('range = value || 1', () => {
+  const result = new Character('Alex');
+  expect(result.range).toBe(1);
+});
+
+test('range = 4', () => {
+  const result = new Character('Alex');
+  result.range = 4;
+  expect(result.range).toBe(4);
+});
+
+describe('attack !incorrect', () => {
+  test.each([
+    [-1],
+    [[]],
+    [{}],
+    [NaN],
+    [null],
+    [false],
+    [undefined],
+    ['Alex'],
+  ])('%p', (attack) => {
+    const result = new Character('name');
+    expect(() => {
+      result.attack = attack;
+    }).toThrow();
+  });
+});
+
+describe('defence !incorrect', () => {
+  test.each([
+    [-1],
+    [[]],
+    [{}],
+    [NaN],
+    [null],
+    [false],
+    [undefined],
+    ['Alex'],
+  ])('%p', (defence) => {
+    const result = new Character('name');
+    expect(() => {
+      result.defence = defence;
+    }).toThrow();
+  });
+});
+
+describe('rangedMod = false', () => {
+  describe('stoned = false', () => {
+    test.each([
+      ['Alex', 1, 10],
+      ['Semen', 2, 10],
+      ['noob', 5, 10],
+    ])('%p %p', (name, range, expected) => {
+      const result = new Character(name);
+      result.attack = 10;
+      result.range = range;
+      expect(result.attack).toEqual(expected);
+    });
+  });
+
+  describe('stoned = true', () => {
+    test.each([
+      ['Alex', 1, 10],
+      ['Semen', 2, 4],
+      ['noob', 5, -5],
+    ])('%p %p', (name, range, expected) => {
+      const result = new Character(name);
+      result.attack = 10;
+      result.rangedMod = true;
+      result.stoned = true;
+      result.range = range;
+      expect(result.attack).toEqual(expected);
+    });
+  });
+});
+
+describe('rangedMod = true', () => {
+  describe('stoned = false', () => {
+    test.each([
+      ['Alex', 1, 10],
+      ['Semen', 2, 9],
+      ['noob', 5, 6],
+    ])('%p %p', (name, range, expected) => {
+      const result = new Character(name);
+      result.attack = 10;
+      result.rangedMod = true;
+      result.range = range;
+      expect(result.attack).toEqual(expected);
+    });
+  });
+
+  describe('stoned = true', () => {
+    test.each([
+      ['Alex', 1, 10],
+      ['Semen', 2, 4],
+      ['noob', 5, -5],
+    ])('%p %p', (name, range, expected) => {
+      const result = new Character(name);
+      result.attack = 10;
+      result.rangedMod = true;
+      result.stoned = true;
+      result.range = range;
+      expect(result.attack).toEqual(expected);
+    });
   });
 });
