@@ -1,19 +1,18 @@
-import Character from './character';
+import StonedCharacters from './stonedCharacters';
 
 /**
  * @class
 * Создает персонажа с классом Magician
 *
-* @extends Character
+* @extends StonedCharacters
 */
-class Magician extends Character {
+class Magician extends StonedCharacters {
   constructor(name) {
     super(name);
 
-    this.type = 'magician';
     this.attack = 10;
     this.defence = 40;
-    this.rangedMod = true;
+    this.type = 'magician';
   }
 }
 

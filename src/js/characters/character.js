@@ -21,10 +21,10 @@ class Character {
     if (name.length < 2 || name.length > 10) {
       throw new Error('длина имени должна быть 2-10 символов');
     }
-    if (/[^a-z\d-_]/i.test(name)) {
+    if (/[^\w-]/.test(name)) {
       throw new Error('Допустимы только латинские буквы, символы тире -, подчёркивания _ и цифры (0-9)');
     }
-    if (/^[\d_-]|\d{3}|[\d_-]$/.test(name)) {
+    if (/^[\d_-]|\d{4}|[\d_-]$/.test(name)) {
       throw new Error('Имя не должно содержать подряд более трёх цифр, а также начинаться и заканчиваться цифрами, символами подчёркивания или тире');
     }
 
@@ -33,107 +33,6 @@ class Character {
     this.defence = 0;
     this.level = 1;
     this.health = 100;
-    this.stoned = false;
-    this.range = 1;
-    this.rangedMod = false;
-  }
-
-  /**
-   * Устанавливает значение свойству stoned
-   *
-   * Принимает аргументом boolean
-   *
-   * @throws {error}
-   */
-  set stoned(value) {
-    if (typeof value !== 'boolean') {
-      throw new Error('stoned должно быть boolean');
-    }
-    this._stoned = value || false;
-  }
-
-  /**
-   * Возвращает значение свойства stoned
-   */
-  get stoned() {
-    return this._stoned;
-  }
-
-  /**
-   * Устанавливает значение свойству range
-   *
-   * Принимает аргументом {number} >= 1
-   *
-   * @throws {error}
-   */
-  set range(value) {
-    if (typeof value !== 'number' || Number.isNaN(value) || value < 1) {
-      throw new Error(`некорректное значение расстояния - ${value}`);
-    }
-    this._range = Math.trunc(value);
-  }
-
-  /**
-   * Возвращает значение свойства range
-   */
-  get range() {
-    return this._range;
-  }
-
-  /**
-   * Устанавливает значение свойству attack
-   *
-   * Принимает аргументом {number} >= 0
-   *
-   * @throws {error}
-   */
-  set attack(value) {
-    if (typeof value !== 'number' || Number.isNaN(value) || value < 0) {
-      throw new Error(`некорректное значение атаки - ${value}`);
-    }
-
-    this._attack = value;
-  }
-
-  /**
-   * Возвращает значение свойства attack
-   *
-   * Рассчитывает значение по формуле, учитывая свойства
-   *
-   * range - stoned - rangeMod
-   */
-  get attack() {
-    let attack = this._attack;
-    if (this.rangedMod) {
-      attack -= attack * (this.range * 0.1 - 0.1);
-      if (this.stoned) {
-        attack -= Math.log2(this.range) * 5;
-      }
-    }
-    return Math.trunc(attack);
-  }
-
-  /**
-   * Устанавливает значение свойству defence
-   *
-   * Принимает аргументом {number} >= 0
-   *
-   * @throws {error}
-   */
-  set defence(value) {
-    if (typeof value !== 'number' || Number.isNaN(value) || value < 0) {
-      throw new Error(`некорректное значение защиты - ${value}`);
-    }
-
-    this._defence = value;
-  }
-
-  /**
-   * Возвращает значение свойства defence
-   */
-  get defence() {
-    const defence = this._defence;
-    return defence;
   }
 
   /**
@@ -171,8 +70,8 @@ class Character {
     }
 
     this.level += 1;
-    this._attack = Math.round(this._attack * 1.2);
-    this._defence = Math.round(this._defence * 1.2);
+    this.attack = Math.round(this.attack * 1.2);
+    this.defence = Math.round(this.defence * 1.2);
     this.health = 100;
   }
 }

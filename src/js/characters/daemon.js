@@ -1,19 +1,18 @@
-import Character from './character';
+import StonedCharacters from './stonedCharacters';
 
 /**
  * @class
 * Создает персонажа с классом Daemon
 *
-* @extends Character
+* @extends StonedCharacters
 */
-class Daemon extends Character {
+class Daemon extends StonedCharacters {
   constructor(name) {
     super(name);
 
-    this.type = 'daemon';
     this.attack = 10;
     this.defence = 40;
-    this.rangedMod = true;
+    this.type = 'daemon';
   }
 }
 
